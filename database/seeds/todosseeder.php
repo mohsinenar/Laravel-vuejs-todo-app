@@ -2,15 +2,16 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class todosseeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call(todosseeder::class);
+        factory(App\todo::class,10)->create();
+       
     }
 }

@@ -11,7 +11,7 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-			  	<v-flex md8>
+			  	<v-flex sm8 md8>
 				  	<v-form v-model="task.valid">
 					    <v-text-field
 					      label="task name"
@@ -23,9 +23,13 @@
 					      v-model="task.text"
 					      required
 					    ></v-text-field>
+					    <!-- <v-time-picker v-model="task.timetodo" ></v-time-picker> -->
+
 					       <v-select
 					          :items="categories"
-					          v-model="task.category"
+					          item-text="name"
+					          item-value="id"
+					          v-model="task.category_id"
 					          label="Select"
 					          single-line
 					        ></v-select>
@@ -36,14 +40,13 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="adddialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="adddialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="adddialog = false" @click="save(task)" >Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </v-layout>
 </template>
-  </v-list>
-</template>
+ 
 
 
 
@@ -53,22 +56,38 @@
 				return{
 					valid:true,
 					task:{
-						title:'hey',
+						title:'',
 						text:'',
-						isdone:false,
-						category:''
+						timetodo:'',
+						category_id:''
 					},
 					adddialog:false,
-					categories:[
-						'cat1','cat2','cat3','cat4'
-					]
+					categories:[]
 				}
 			}
 			,
 			methods:{
-				save:function () {
-					
-				}
-			}
+				save:function (task) {
+					axios.post('/api/tasks',{
+						task:task
+					})
+                  .then(response=>{
+                    console.log(response.data);
+                  })
+				},
+				loadcategories:function () {
+          
+            axios.get('api/categories')
+                  .then(response=>{
+                    // console.log(response.data);
+                    this.categories = response.data;
+                    console.log(this.categories);
+                  })
+        }
+			},
+			 mounted:function () {
+       this.loadcategories();
+      }
+
 		}
 	</script>

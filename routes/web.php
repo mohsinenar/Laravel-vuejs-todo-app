@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/api/tasks',"TodoController@index");	
+Route::post('/api/tasks',"TodoController@create");	
+Route::delete('api/task/{taskId}',"TodoController@destroy");	
+
+
+Route::post('/api/category/',"CategoryController@store");	
+Route::get('/api/categories',"CategoryController@index");

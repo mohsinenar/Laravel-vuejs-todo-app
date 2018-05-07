@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>hey</title>
+    <title>todo app</title>
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-   
+    
     <div id="app">
-       @{{catfiltre}}
  <v-app id="inspire" dark>
     <v-navigation-drawer
       clipped
@@ -16,12 +19,11 @@
       v-model="drawer"
       app
     >
-      <categories  @updatefiltre="updatefiltrep($event)"  categories='categories' ></categories>
+      <categories  @updatefiltre="updatefiltrep($event)"></categories>
     </v-navigation-drawer>
     <v-toolbar app fixed clipped-left>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>todo</v-toolbar-title>
-
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -29,11 +31,10 @@
         <v-layout justify-center align-center>
            <todo-list v-bind:catfiltre="catfiltre"></todo-list>
         </v-layout>
+        
       </v-container>
     </v-content>
-    <v-footer app fixed>
-      <span>&copy; 2017</span>
-    </v-footer>
+
   </v-app>
     </div>
 

@@ -14,7 +14,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        return todo::with('category')->paginate(100);
     }
 
     /**
@@ -22,9 +22,14 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(request $request)
     {
-        //
+         $todo = new todo;
+         // $todo = $request->task;
+        $todo->create($request->task);
+        return $todo;
+
+
     }
 
     /**
@@ -78,8 +83,8 @@ class TodoController extends Controller
      * @param  \App\todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(todo $todo)
+    public function destroy($taskId)
     {
-        //
-    }
+      return todo::destroy($taskId)
+;    }
 }

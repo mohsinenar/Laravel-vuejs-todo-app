@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return category::all();
     }
 
     /**
@@ -33,9 +33,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(request $request)
     {
-        //
+        $newcat = new category;
+        $newcat->name = $request->name;
+        $newcat->save();
+        return $newcat;
+
     }
 
     /**
